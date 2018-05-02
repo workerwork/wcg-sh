@@ -47,7 +47,7 @@ function log() {
     export -f monitor_log
     export -f vtysh_log
     
-	local watch="/root/eGW/Config.sh/watchdog_log.sh"
+    local watch="/root/eGW/Config.sh/watchdog_log.sh"
     $watch ps_log eGW-ps_log-timer eGW-ps_log-num &
     $watch history_log eGW-history_log-timer eGW-history_log-num &
     $watch keepalived_log eGW-keepalived_log-timer eGW-keepalived-num &
