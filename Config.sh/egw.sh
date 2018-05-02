@@ -51,7 +51,7 @@ function gtp() {
     local lf_switch_set=${LF_SWITCH_SET}
     local lf_switch=${lf_switch_set:-$lf_switch_default}
     local gtp_addr_default=${LF_GTP_ADDR_DEFAULT:-"73.73.0.1"}
-	local gtp_addr_set=${LF_GTP_ADDR_SET}
+    local gtp_addr_set=${LF_GTP_ADDR_SET}
     local gtp_addr=${gtp_addr_set:-$gtp_addr_default}
     local gtp_a=$(echo $gtp_addr | awk -F '.' '{print $1}')
     local gtp_b=$(echo $gtp_addr | awk -F '.' '{print $2}')
