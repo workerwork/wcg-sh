@@ -69,8 +69,21 @@ function start_ipsec() {
     local ipsec_downlink_default=${IPSEC_DOWNLINK_DEFAULT:-"disable"}
     local ipsec_downlink_set=${IPSEC_DOWNLINK_SET}
     local ipsec_downlink=${ipsec_downlink_set:-$ipsec_downlink_default}
-    if [ $ipsec_uplink == "enable" ] || [ $ipsec_downlink == "enable" ];then
-        ipsec start
+    local ha_switch=$(awk -F '=' '/^ha_switch/{print $2}' /root/eGW/ha.conf)
+    if [ ! -f /root/eGW/.ha.status   ];then
+        echo "MASTER" > /root/eGW/.ha.status
+    fi
+    local ha_status=$(cat /root/eGW/.ha.status)
+    if [[ $ha_switch == "enable"  ]];then
+        if [[ $ha_status == "MASTER"  ]];then
+            if [ $ipsec_uplink == "enable" ] || [ $ipsec_downlink == "enable" ];then
+                ipsec start
+            fi
+        fi
+    else
+        if [ $ipsec_uplink == "enable"  ] || [ $ipsec_downlink == "enable"  ];then
+            ipsec start
+        fi
     fi
 }
 
