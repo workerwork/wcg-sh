@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lmt_config>
+	<common>
+		<redis_config>
+			<redis_ip_port>
+				<redis_ip>127.0.0.1</redis_ip>
+				<redis_port>6379</redis_port>
+			</redis_ip_port>
+		</redis_config>
+		<report_log_config>
+			<log_max_file_size>104857600</log_max_file_size>
+			<log_file_path>/root/eGW/Logs/omcapi/report/egw_report.log</log_file_path>
+		</report_log_config>
+		<lmt_log_config>
+			<log_max_file_size>104857600</log_max_file_size>
+			<log_file_path>/root/eGW/Logs/omcapi/manage/egw_manage.log</log_file_path>
+			<server_ip_addr>127.0.0.1</server_ip_addr>
+			<listen_port>15678</listen_port>
+		</lmt_log_config>
+	</common>
+	<report_api>
+		<alarm_api>http://127.0.0.1:8080/baicellsOMC/egw/egwOmcAlarm</alarm_api>
+	</report_api>
+	<kpi_report_api>http://127.0.0.1:8082/smallcell/FileUploadService?fileType=EGW&amp;filename=</kpi_report_api>
+	<cell_status_report_api>http://127.0.0.1:8080/baicellsOMC/egw/reportEnbInfo</cell_status_report_api>
+	<sys_status_report_api>http://127.0.0.1:8080/baicellsOMC/egw/notification/changeStatus</sys_status_report_api>
+	<syncStoreChannelName>egwConfigChangeChannel</syncStoreChannelName>
+	<egw_ip>127.0.0.1</egw_ip>
+</lmt_config>

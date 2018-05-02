@@ -1,0 +1,11 @@
+# Configuration file for Logging config of MME
+
+#####  NOTE: Please Do NOT change the order of the parameters #####
+
+loggingMode = 1     # Console logging=0/File based logging=1
+logMask = 1111      # Debug mask for log enable disable
+logMaxFileSize = 52428800  # Maximum size of a logging file, 500MB
+logMaxNumBkpFiles = 5       # Maximum number of files
+logFilePath = "/root/eGW/Logs/ltegwd/egw.log"   # Default name of file
+
+

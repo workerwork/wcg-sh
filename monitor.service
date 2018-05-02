@@ -1,0 +1,11 @@
+[Unit]
+Description=LTE-GW 
+Requires=network.target multi-user.target 
+After=network.target multi-user.target
+
+[Service]
+Type=forking
+ExecStart=/root/eGW/startAll.sh
+
+[Install]
+WantedBy=multi-user.target
