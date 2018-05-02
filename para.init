@@ -1,0 +1,113 @@
+#########################################################################################
+# para.init
+# 默认参数
+# version:3.0
+# update:20180502
+#########################################################################################
+#config
+config_ipsec_uplink_switch = disable
+config_ipsec_downlink_switch = disable
+config_gtp_address = 73.73.0.1
+config_gtp_forward_switch = disable
+config_gtp_nat_interface = x
+config_gtp_nat_address = x.x.x.x
+config_iptables_switch = disable
+config_iptables_interface = x
+
+#watchdog
+watchdog_switch = enable
+watchdog_ltegwd_timer = 5
+watchdog_manage_timer = 5
+watchdog_manage_logger_timer = 5
+watchdog_report_timer = 5
+watchdog_monitor_timer = 5
+watchdog_ipsec_test_timer = 5
+watchdog_cdr_timer = 5
+watchdog_cdr_number = 15
+watchdog_ps_log_timer = 3600
+watchdog_ps_log_number = 15
+watchdog_history_log_timer = 3600
+watchdog_history_log_number = 15
+watchdog_keepalived_log_timer = 3600
+watchdog_keepalived_log_number = 15
+watchdog_ltegwd_log_timer = 3600
+watchdog_ltegwd_log_number = 15
+watchdog_manage_log_timer = 3600
+watchdog_manage_log_number = 15
+watchdog_report_log_timer = 3600
+watchdog_report_log_number = 15
+watchdog_monitor_log_timer = 3600
+watchdog_monitor_log_number = 15
+watchdog_vtysh_log_timer = 3600
+watchdog_vtysh_log_number = 15
+
+#ltegwd.xml:cfgInfo
+ltegwd_redisServIp = 127.0.0.1
+ltegwd_redisServPort = 6379
+ltegwd_egwIp = 127.0.0.1
+ltegwd_enbUpperRate = 80
+ltegwd_enbLowerRate = 60
+ltegwd_ueUpperRate = 80
+ltegwd_ueLowerRate = 60
+ltegwd_licenceTime = 3600
+ltegwd_kpiReportTime = 60
+
+#eGWLogCfg.txt
+ltegwd_loggingMode = 1
+ltegwd_logMask = 1111
+ltegwd_logMaxFileSize = 52428800
+ltegwd_logMaxNumBkpFiles = 5
+ltegwd_logFilePath = "/root/eGW/Logs/ltegwd/egw.log"
+
+#vtyshLogCfg.txt
+vtysh_loggingMode = 1
+vtysh_logMask = 1111
+vtysh_logMaxFileSize = 52428800
+vtysh_logMaxNumBkpFiles = 5
+vtysh_logFilePath = "/root/eGW/Logs/vtysh/vtysh.log"
+
+#eGW_Cfg_Info.xml
+omcapi_lmt_redis_ip = 127.0.0.1
+omcapi_lmt_redis_port = 6379
+omcapi_lmt_report_log_max_file_size = 104857600
+omcapi_lmt_report_log_file_path = "/root/eGW/Logs/omcapi/report/egw_report.log"
+omcapi_lmt_manage_log_max_file_size = 104857600
+omcapi_lmt_manage_log_file_path = "/root/eGW/Logs/omcapi/manage/egw_manage.log"
+omcapi_lmt_manage_server_ip_addr = 127.0.0.1
+omcapi_lmt_manage_listen_port = 15678
+omcapi_lmt_report_alarm_api = "http://127.0.0.1:8080/baicellsOMC/egw/egwOmcAlarm"
+omcapi_lmt_report_kpi_api = "http://127.0.0.1:8082/smallcell/FileUploadService?fileType=EGW&amp;filename="
+omcapi_lmt_report_cell_status_api = "http://127.0.0.1:8080/baicellsOMC/egw/reportEnbInfo"
+omcapi_lmt_report_sys_status_api = "http://127.0.0.1:8080/baicellsOMC/egw/notification/changeStatus"
+omcapi_lmt_syncStoreChannelName = "egwConfigChangeChannel"
+omcapi_lmt_egw_ip = 127.0.0.1
+#eGW_Monitor_Cfg_Info.xml
+#omcapi_monitor_redis_ip = 127.0.0.1
+#omcapi_monitor_redis_port = 6379
+omcapi_monitor_check_process_timer = 25
+omcapi_monitor_check_sys_status_timer = 65
+omcapi_monitor_ip = 127.0.0.1
+omcapi_monitor_process_switch = 0
+omcapi_monitor_log_max_file_size = 104857600
+omcapi_monitor_log_file_path = "/root/eGW/Logs/omcapi/monitor/egw_monitor.log"
+omcapi_monitor_proc_name1 = "ltegwd"
+omcapi_monitor_proc_name2 = "egw_manage"
+omcapi_monitor_proc_name3 = "egw_report"
+omcapi_monitor_proc_name4 = "egw_manage_logger"
+omcapi_monitor_cpu_lower_limit = 60
+omcapi_monitor_cpu_upper_limit = 90
+omcapi_monitor_mem_lower_limit = 60
+omcapi_monitor_mem_upper_limit = 90
+omcapi_monitor_disk_lower_limit = 60
+omcapi_monitor_disk_upper_limit = 90
+omcapi_monitor_log_size_max_limit1 = 500
+omcapi_monitor_log_path1 = "/root/eGW/Logs/omcapi/manage"
+omcapi_monitor_log_size_max_limit2 = 500
+omcapi_monitor_log_path2 = "/root/eGW/Logs/omcapi/report"
+omcapi_monitor_log_size_max_limit3 = 500
+omcapi_monitor_log_path3 = "/root/eGW/Logs/omcapi/monitor"
+omcapi_monitor_log_size_max_limit4 = 500
+omcapi_monitor_log_path4 = "/root/eGW/Logs/omcapi/ltegwd"
+omcapi_monitor_signal_nic_name = "ens123"
+omcapi_monitor_userplane_nic_name = "gtp1_1"
+
