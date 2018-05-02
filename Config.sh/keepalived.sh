@@ -23,6 +23,7 @@ function keepalived() {
         else
             local ha_slave=$(awk -F '=' '/^slaveip/{print $2}' /root/eGW/ha.conf)
             redis-cli slaveof $ha_slave 6379
+			ipsec stop
             echo "local server is backup,exit!"
             exit 0
         fi
@@ -43,7 +44,6 @@ function to_master() {
 function to_backup() {
     echo "BACKUP" > /root/eGW/.ha.status
     systemctl restart monitor
-    ipsec stop
     time_all=`date +%Y-%m-%d' '%H:%M:%S`
     time_Ymd=`date +%Y%m%d`
     echo $time_all " keepalived: local server change to backup,stop monitor" >> $LOG_PATH/keepalived_${time_Ymd}.log
@@ -52,7 +52,6 @@ function to_backup() {
 function to_fault() {
     echo "FAULT" > /root/eGW/.ha.status
     systemctl restart monitor
-    ipsec stop
     time_all=`date +%Y-%m-%d' '%H:%M:%S`
     time_Ymd=`date +%Y%m%d`
     echo $time_all " keepalived: local server change to fault,stop monitor" >> $LOG_PATH/keepalived_${time_Ymd}.log
@@ -61,7 +60,6 @@ function to_fault() {
 function to_stop() {
     echo "STOP" > /root/eGW/.ha.status
     systemctl restart monitor
-    ipsec stop
     time_all=`date +%Y-%m-%d' '%H:%M:%S`
     time_Ymd=`date +%Y%m%d`
     echo $time_all " keepalived: local server change to stop,stop monitor" >> $LOG_PATH/keepalived_${time_Ymd}.log
