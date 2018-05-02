@@ -23,7 +23,7 @@ function keepalived() {
         else
             local ha_slave=$(awk -F '=' '/^slaveip/{print $2}' /root/eGW/ha.conf)
             redis-cli slaveof $ha_slave 6379
-			ipsec stop
+            ipsec stop
             echo "local server is backup,exit!"
             exit 0
         fi
