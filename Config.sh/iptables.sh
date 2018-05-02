@@ -25,10 +25,10 @@ function set_default_policy_iptables() {
 function set_firewalld_iptables() {
     local iptables_switch_default=${IPTABLES_SWITCH_DEFAULT:-"disable"}
     local iptables_switch_set=${IPTABLES_SWITCH_SET}
-    local iptables_switch=${iptables_switch_default:-$iptables_switch_set}
-    local public_interface_default=${PUBLIC_INTERFACE_DEFAULT}
-    local public_interface_set=${PUBLIC_INTERFACE_SET}
-    local public_interface=${public_interface_set:-$public_interface_default}
+    local iptables_switch=${iptables_switch_set:-$iptables_switch_default}
+    local iptables_interface_default=${IPTABLES_IF_DEFAULT}
+    local iptables_interface_set=${IPTABLES_IF_SET}
+    local iptables_interface=${iptables_interface_set:-$iptables_interface_default}
     if [[ $iptables_switch -eq 1 ]];then
         iptables -A INPUT -p udp --sport 53 -j ACCEPT										#允许DNS
         iptables -A INPUT -p udp --dport 53 -j ACCEPT										#允许DNS
@@ -39,7 +39,7 @@ function set_firewalld_iptables() {
         iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT    				#允许已经建链的包和响应包
         iptables -A INPUT -p icmp -j ACCEPT													#允许ICMP包
         iptables -A INPUT -p esp -j ACCEPT                                  				#允许ESP包
-        [ $public_interface ] && iptables -A INPUT -p all -i ${public_interface} -j DROP	#丢弃指定端口包
+        [ $iptables_interface ] && iptables -A INPUT -p all -i ${iptables_interface} -j DROP	#丢弃指定端口包
     fi
 }
 
