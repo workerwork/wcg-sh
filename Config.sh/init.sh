@@ -49,7 +49,7 @@ function init_redis() {
 }
 
 function init_para() {
-    if [ -f /root/eGW/init_parameters.conf  ];then
+    if [ -f /root/eGW/para.init ];then
         while read line
         do
             if [ "${line:0:1}" != "#"   ]; then
@@ -58,7 +58,7 @@ function init_para() {
                 value=$(echo $line | awk '{print $3}')
                 redis-cli hset eGW-para-default $key $value
             fi	
-        done < /root/eGW/init_parameters.conf
+        done < /root/eGW/para.init
     fi
 }
 
