@@ -6,7 +6,9 @@
 # update:20180502
 #########################################################################################
 function ipsec_ipaddr() {
-    local ipsec_uplink=${IPSEC_UPLINK:-"disable"}
+    local ipsec_uplink_default=${IPSEC_UPLINK_DEFAULT:-"disable"}
+    local ipsec_uplink_set=${IPSEC_UPLINK_SET}
+    local ipsec_uplink=${ipsec_uplink_set:-$ipsec_uplink_default}
     if [[ $ipsec_uplink == "enable" ]];then
         while :
         do
@@ -45,30 +47,45 @@ function init_gso() {
 function gtp() {
     rmmod /root/eGW/gtp-relay.ko
     insmod /root/eGW/gtp-relay.ko
-    local gtp_address=${GTP_ADDRESS:-"73.73.0.1"}
-    local gtp_a=$(echo $gtp_address | awk -F '.' '{print $1}')
-    local gtp_b=$(echo $gtp_address | awk -F '.' '{print $2}')
-    local gtpnat_interface=$GTPNAT_INTERFACE
-    local gtpnat_address=$GTPNAT_ADDRESS
-    [ $gtp_address ] && ifconfig gtp1_1 $gtp_address
-    if [ $gtp_a ] && [ $gtp_b ];then
-        var=`expr $gtp_a \* 256 + $gtp_b`
-        echo $var > /sys/module/gtp_relay/parameters/gtp_lip
-    fi
-    if [ $LOCAL_FORWARD == "enable" ];then
+    local lf_switch_default=${LF_SWITCH_DEFAULT:-"disable"}
+    local lf_switch_set=${LF_SWITCH_SET}
+    local lf_switch=${lf_switch_set:-$lf_switch_default}
+    local gtp_addr_default=${LF_GTP_ADDR_DEFAULT:-"73.73.0.1"}
+	local gtp_addr_set=${LF_GTP_ADDR_SET}
+    local gtp_addr=${gtp_addr_set:-$gtp_addr_default}
+    local gtp_a=$(echo $gtp_addr | awk -F '.' '{print $1}')
+    local gtp_b=$(echo $gtp_addr | awk -F '.' '{print $2}')
+    local gtp_nat_if_default=${LF_GTP_NAT_IF_DEFAULT:-"x"}
+    local gtp_nat_if_set=${LF_GTP_NAT_IF_SET}
+    local gtp_nat_if=${gtp_nat_if_set:-$gtp_nat_if_default}
+    local gtp_nat_addr_default=${LF_GTP_NAT_ADDR_DEFAULT:-"x.x.x.x"}
+    local gtp_nat_addr_set=${LF_GTP_NAT_ADDR_SET}
+    local gtp_nat_addr=${gtp_nat_addr_set:-$gtp_nat_addr_default}
+    if [ $lf_switch == "enable" ];then
         echo 1 > /sys/module/gtp_relay/parameters/gtp_islip
-        if [ $gtp_a ] && [ $gtp_b ] && [ $gtpnat_interface ] && [ $gtpnat_address ];then
-            iptables -t nat -A POSTROUTING -s ${gtp_a}.${gtp_b}.0.0/16 -o $gtpnat_interface -j SNAT --to-source $gtpnat_address
+        [ $gtp_addr  ] && ifconfig gtp1_1 $gtp_addr
+        if [ $gtp_a  ] && [ $gtp_b  ];then
+            var=`expr $gtp_a \* 256 + $gtp_b`
+            echo $var > /sys/module/gtp_relay/parameters/gtp_lip
+            if [ $gtp_nat_if ] && [ $gtp_nat_addr ];then
+                iptables -t nat -A POSTROUTING -s ${gtp_a}.${gtp_b}.0.0/16 -o $gtp_nat_if -j SNAT --to-source $gtp_nat_addr
+            fi
         fi
     else
         echo 0 > /sys/module/gtp_relay/parameters/gtp_islip
     fi
-    if [[ $IPSEC_DOWNLINK == "enable" ]];then
+    local ipsec_uplink_default=${IPSEC_UPLINK_DEFAULT:-"disable"}
+    local ipsec_uplink_set=${IPSEC_UPLINK_SET}
+    local ipsec_uplink=${ipsec_uplink_set:-$ipsec_uplink_default}
+    local ipsec_downlink_default=${IPSEC_DOWNLINK_DEFAULT:-"disable"}
+    local ipsec_downlink_set=${IPSEC_DOWNLINK_SET}
+    local ipsec_downlink=${ipsec_downlink_set:-$ipsec_downlink_default}
+    if [[ $ipsec_downlink == "enable" ]];then
         echo 1 > /sys/module/gtp_relay/parameters/gtp_ipsec_dl
     else
         echo 0 > /sys/module/gtp_relay/parameters/gtp_ipsec_dl
     fi
-    if [[ $IPSEC_UPLINK == "enable" ]];then
+    if [[ $ipsec_uplink == "enable" ]];then
         echo 1 > /sys/module/gtp_relay/parameters/gtp_ipsec_ul
     else
         echo 0 > /sys/module/gtp_relay/parameters/gtp_ipsec_ul
