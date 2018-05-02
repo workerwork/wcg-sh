@@ -3,8 +3,8 @@
 #########################################################################################
 # update
 # 版本升级工具
-# version:1.0
-# update:20180306
+# version:3.0
+# update:20180502
 #########################################################################################
 
 VER_DIR=/root/eGW/.version
@@ -16,15 +16,15 @@ wget $VER_PATH -O $VER_NAME
 (($? == 1)) && exit 1
 ver=$(find $VER_DIR -maxdepth 1 -type f -name "*.rpm")
 if [ $ver ];then
-	rpm -qa | grep WCG
-	(($? == 0)) && rpm -Uvh $ver --force
-	exit 0
+    rpm -qa | grep WCG
+    (($? == 0)) && rpm -Uvh $ver --force
+    exit 0
 fi
 ver=$(find $VER_DIR -maxdepth 1 -type f -name "*.tar.gz")
 if [ $ver ];then
-	rpm -qa |grep WCG
-	(($? == 0)) && /root/eGW/vman -u $ver
-	exit 0
+    rpm -qa |grep WCG
+    (($? == 0)) && /root/eGW/vman -u $ver
+    exit 0
 fi
 exit 1
 
