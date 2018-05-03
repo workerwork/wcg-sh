@@ -17,8 +17,8 @@ function watch_log() {
             sleep_timer_default=$(redis-cli hget eGW-para-default $timer)
             sleep_timer_set=$(redis-cli hget eGW-para-set $timer)
             sleep_timer=${sleep_timer_set:-$sleep_timer_default}
-            if [[ $sleep_timer -ne "0"  ]];then
-                $task && sleep ${sleep_timer:-"3600"} || exit 1
+            if [[ $sleep_timer != "0"  ]];then
+                $task && sleep ${sleep_timer:-"60"} || exit 1
             else
                 sleep 5
             fi
@@ -29,8 +29,8 @@ function watch_log() {
             keep_num_default=$(redis-cli hget eGW-para-default $num)
             keep_num_set=$(redis-cli hget eGW-para-set $num)
             keep_num=${keep_num_set:-$keep_num_default}
-            if [[ $sleep_timer -ne "0"  ]];then
-                $task ${keep_num:-"15"} && sleep ${sleep_timer:-"3600"} || exit 1
+            if [[ $sleep_timer != "0"  ]];then
+                $task ${keep_num:-"15"} && sleep ${sleep_timer:-"60"} || exit 1
             else
                 sleep 5
             fi
