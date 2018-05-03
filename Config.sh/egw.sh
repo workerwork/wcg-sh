@@ -3,7 +3,7 @@
 # egw.sh
 # 配置eGW
 # version:3.0
-# update:20180502
+# update:20180503
 #########################################################################################
 function ipsec_ipaddr() {
     local ipsec_uplink_default=${IPSEC_UPLINK_DEFAULT:-"disable"}
@@ -29,7 +29,7 @@ function ipsec_ipaddr() {
         /root/eGW/vtysh -c /root/eGW/Config.sh/.config.show | \
         sed -n "s@\(gtpu-uplink add[ ]\).*@\1$ip_conf@p" >> /root/eGW/Config.sh/.config.cmd
         /root/eGW/vtysh -c /root/eGW/Config.sh/.config.cmd
-        sleep 60	
+        #sleep 60	
     fi
 }
 

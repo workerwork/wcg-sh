@@ -18,11 +18,12 @@ source $CUR_DIR/iptables.sh && config_iptables
 #keepalived
 source $CUR_DIR/keepalived.sh && keepalived
 
-#配置eGW
-source $CUR_DIR/egw.sh && egw
-
 #启动各进程
 source $CUR_DIR/process.sh && process
+sleep 1
+
+#配置eGW
+source $CUR_DIR/egw.sh && egw 
 
 #启动watchdog
 function watchdog() {
