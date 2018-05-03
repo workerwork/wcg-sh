@@ -17,12 +17,12 @@ function ps() {
     export -f ipsec_test
 
     local watch="/root/eGW/Config.sh/watchdog_ps.sh"
-    $watch ps_ltegwd eGW-ltegwd-timer &
-    $watch ps_egw_manage eGW-manage-timer &
-    $watch ps_egw_report eGW-report-timer &
-    $watch ps_egw_monitor eGW-monitor-timer &
-    $watch ps_egw_manage_logger eGW-manage_logger-timer &
-    $watch ipsec_test eGW-ipsec_test-timer &
+    $watch ps_ltegwd watchdog_ltegwd_timer &
+    $watch ps_egw_manage watchdog_manage_timer &
+    $watch ps_egw_report watchdog_report_timer &
+    $watch ps_egw_monitor watchdog_monitor_timer &
+    $watch ps_egw_manage_logger watchdog_manage_logger_timer&
+    $watch ipsec_test watchdog_ipsec_test_timer &
 }
 
 function cdr() {
@@ -33,7 +33,7 @@ function cdr() {
     export -f cdr_del
 
     local watch="/root/eGW/Config.sh/watchdog_cdr.sh"
-    $watch cdr_all eGW-cdr-timer eGW-cdr-num &
+    $watch cdr_all watchdog_cdr_timer watchdog_cdr_number &
 }
 
 function log() {
@@ -48,14 +48,14 @@ function log() {
     export -f vtysh_log
     
     local watch="/root/eGW/Config.sh/watchdog_log.sh"
-    $watch ps_log eGW-ps_log-timer eGW-ps_log-num &
-    $watch history_log eGW-history_log-timer eGW-history_log-num &
-    $watch keepalived_log eGW-keepalived_log-timer eGW-keepalived-num &
-    $watch ltegwd_log eGW-ltegwd_log-timer eGW-ltegwd_log-num &
-    $watch manage_log eGW-manage_log-timer eGW-manage_log-num &
-    $watch report_log eGW-report_log-timer eGW-report_log-num &
-    $watch monitor_log eGW-monitor_log-timer eGW-monitor_log-num &
-    $watch vtysh_log eGW-vtysh_log-timer eGW-vtysh_log-num &
+    $watch ps_log watchdog_ps_log_timer watchdog_ps_log_number &
+    $watch history_log watchdog_history_log_timer watchdog_history_log_number &
+    $watch keepalived_log watchdog_keepalived_log_timer watchdog_keepalived_log_number &
+    $watch ltegwd_log watchdog_ltegwd_log_timer watchdog_ltegwd_log_number &
+    $watch manage_log watchdog_manage_log_timer watchdog_manage_log_number &
+    $watch report_log watchdog_report_log_timer watchdog_report_log_number &
+    $watch monitor_log watchdog_monitor_log_timer watchdog_monitor_log_number &
+    $watch vtysh_log watchdog_vtysh_log_timer watchdog_vtysh_log_number &
 }
 
 function watchdog_all() {
