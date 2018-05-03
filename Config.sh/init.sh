@@ -3,8 +3,22 @@
 # init.sh
 # 初始化
 # version:3.0
-# update:20180502
+# update:20180503
 #########################################################################################
+function init_fold() {
+    [ ! -f /root/eGW/CDR/cdrDat ] && mkdir -p /root/eGW/CDR/cdrDat
+    [ ! -f /root/eGW/ImsiFiles ] && mkdir -p /root/eGW/ImsiFiles
+    [ ! -f /root/eGW/Logs/history ] && mkdir -p /root/eGW/Logs/history
+    [ ! -f /root/eGW/Logs/keepalived ] && mkdir -p /root/eGW/Logs/keepalived
+    [ ! -f /root/eGW/Logs/ltegwd ] && mkdir -p /root/eGW/Logs/ltegwd
+    [ ! -f /root/eGW/Logs/tcpdump ] && mkdir -p /root/eGW/Logs/tcpdump
+    [ ! -f /root/eGW/Logs/vtysh ] && mkdir -p /root/eGW/Logs/vtysh
+    [ ! -f /root/eGW/Logs/watchdog ] && mkdir -p /root/eGW/Logs/watchdog
+    [ ! -f /root/eGW/Logs/omcapi/manage ] && mkdir -p /root/eGW/Logs/omcapi/manage
+    [ ! -f /root/eGW/Logs/omcapi/monitor ] && mkdir -p /root/eGW/Logs/omcapi/monitor
+    [ ! -f /root/eGW/Logs/omcapi/report ] && mkdir -p /root/eGW/Logs/omcapi/report
+}
+
 function init_net() {
     if [ -f /root/eGW/networkcfg.conf ];then
         while read line
@@ -88,6 +102,7 @@ function start_ipsec() {
 }
 
 function init() {
+    init_fold
     init_net
     init_redis
     init_para
