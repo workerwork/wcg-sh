@@ -21,7 +21,7 @@ function ps() {
     $watch ps_egw_manage watchdog_manage_timer &
     $watch ps_egw_report watchdog_report_timer &
     $watch ps_egw_monitor watchdog_monitor_timer &
-    $watch ps_egw_manage_logger watchdog_manage_logger_timer&
+    $watch ps_egw_manage_logger watchdog_manage_logger_timer &
     $watch ipsec_test watchdog_ipsec_test_timer &
 }
 
