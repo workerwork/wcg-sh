@@ -32,8 +32,8 @@ function init_net() {
 }
 
 function init_redis() {
-    local ha_switch=$(awk -F '=' '/^ha_switch/{print $2}' /root/eGW/ha.conf)
-    local ha_local=$(awk -F '=' '/^localip/{print $2}' /root/eGW/ha.conf)
+    local ha_switch=$(awk -F ' = ' '/^ha_switch/{print $2}' /root/eGW/ha.conf)
+    local ha_local=$(awk -F ' = ' '/^localip/{print $2}' /root/eGW/ha.conf)
     if [ $ha_switch == "enable"  ];then
         if [ $ha_local  ];then
             grep "^bind 127.0.0.1 $ha_local" /etc/redis.conf
@@ -83,7 +83,7 @@ function start_ipsec() {
     local ipsec_downlink_default=${IPSEC_DOWNLINK_DEFAULT:-"disable"}
     local ipsec_downlink_set=${IPSEC_DOWNLINK_SET}
     local ipsec_downlink=${ipsec_downlink_set:-$ipsec_downlink_default}
-    local ha_switch=$(awk -F '=' '/^ha_switch/{print $2}' /root/eGW/ha.conf)
+    local ha_switch=$(awk -F ' = ' '/^ha_switch/{print $2}' /root/eGW/ha.conf)
     if [ ! -f /root/eGW/.ha.status   ];then
         echo "MASTER" > /root/eGW/.ha.status
     fi
