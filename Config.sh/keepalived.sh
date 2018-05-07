@@ -9,7 +9,7 @@ LOG_PATH=/root/eGW/Logs/keepalived
 NOTIFY=$1
 
 function keepalived() {
-    local ha_switch=$(awk -F '=' '/^ha_switch/{print $2}' /root/eGW/ha.conf)
+    local ha_switch=$(awk -F ' = ' '/^ha_switch/{print $2}' /root/eGW/ha.conf)
     if [[ $ha_switch == "enable" ]];then
         systemctl enable keepalived
         systemctl start keepalived
@@ -21,7 +21,7 @@ function keepalived() {
             redis-cli slaveof no one
             echo "local server is master,go on!"    
         else
-            local ha_slave=$(awk -F '=' '/^slaveip/{print $2}' /root/eGW/ha.conf)
+            local ha_slave=$(awk -F ' = ' '/^slaveip/{print $2}' /root/eGW/ha.conf)
             redis-cli slaveof $ha_slave 6379
             ipsec stop
             echo "local server is backup,exit!"
