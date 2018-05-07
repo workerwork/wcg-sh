@@ -45,8 +45,8 @@ function init_gso() {
 
 
 function gtp() {
-    rmmod /root/eGW/gtp-relay.ko
-    insmod /root/eGW/gtp-relay.ko
+    lsmod | grep gtp_relay
+    [[ $? == 1 ]] && rmmod /root/eGW/gtp-relay.ko && insmod /root/eGW/gtp-relay.ko
     local lf_switch_default=${LF_SWITCH_DEFAULT:-"disable"}
     local lf_switch_set=${LF_SWITCH_SET}
     local lf_switch=${lf_switch_set:-$lf_switch_default}
