@@ -47,36 +47,36 @@ function ps_log() {
 
 function history_log() {
     history_num=$1
-    ls -lt /root/eGW/Logs/history/* 2>/dev/null | awk -v history_num=$history_num '{if(NR>history_num){print $9}}' | xargs rm -rf
+    ls -lt /root/eGW/Logs/history/*.log 2>/dev/null | awk -v history_num=$history_num '{if(NR>history_num){print $9}}' | xargs rm -rf
 }
 
 function keepalived_log() {
     keepalived_num=$1
-    ls -lt /root/eGW/Logs/keepalived/* 2>/dev/null | awk -v keepalived_num=$keepalived_num '{if(NR>keepalived_num){print $9}}' | xargs rm -rf
+    ls -lt /root/eGW/Logs/keepalived/*.log 2>/dev/null | awk -v keepalived_num=$keepalived_num '{if(NR>keepalived_num){print $9}}' | xargs rm -rf
 }
 
 function ltegwd_log() {
     ltegwd_num=$1
-    ls -lt /root/eGW/Logs/ltegwd/* 2>/dev/null | awk -v ltegwd_num=$ltegwd_num '{if(NR>ltegwd_num){print $9}}' | xargs rm -rf	
+    ls -lt /root/eGW/Logs/ltegwd/egw.log_* 2>/dev/null | awk -v ltegwd_num=$ltegwd_num '{if(NR>ltegwd_num){print $9}}' | xargs rm -rf	
 }
 
 function manage_log() {
     manage_num=$1
-    ls -lt /root/eGW/Logs/omcapi/manage/* 2>/dev/null | awk -v manage_num=$manage_num '{if(NR>manage_num){print $9}}' | xargs rm -rf
+    ls -lt /root/eGW/Logs/omcapi/manage/*.log 2>/dev/null | awk -v manage_num=$manage_num '{if(NR>manage_num){print $9}}' | xargs rm -rf
 }
 
 function report_log() {
     report_num=$1
-    ls -lt /root/eGW/Logs/omcapi/report/* 2>/dev/null | awk -v report_num=$report_num '{if(NR>report_num){print $9}}' | xargs rm -rf
+    ls -lt /root/eGW/Logs/omcapi/report/egw_report.* 2>/dev/null | awk -v report_num=$report_num '{if(NR>report_num){print $9}}' | xargs rm -rf
 }
 
 function monitor_log() {
     monitor_num=$1
-    ls -lt /root/eGW/Logs/omcapi/monitor/* 2>/dev/null | awk -v monitor_num=$monitor_num '{if(NR>monitor_num){print $9}}' | xargs rm -rf
+    ls -lt /root/eGW/Logs/omcapi/monitor/*.log 2>/dev/null | awk -v monitor_num=$monitor_num '{if(NR>monitor_num){print $9}}' | xargs rm -rf
 }
 
 function vtysh_log() {
     vtysh_num=$1
-    ls -lt /root/eGW/Logs/vtysh/* 2>/dev/null | awk -v vtysh_num=$vtysh_num '{if(NR>vtysh_num){print $9}}' | xargs rm -rf
+    ls -lt /root/eGW/Logs/vtysh/*.log 2>/dev/null | awk -v vtysh_num=$vtysh_num '{if(NR>vtysh_num){print $9}}' | xargs rm -rf
 }
 
