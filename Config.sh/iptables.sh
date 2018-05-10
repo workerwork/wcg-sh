@@ -30,6 +30,8 @@ function set_firewalld_iptables() {
     local iptables_interface_set=${IPTABLES_IF_SET}
     local iptables_interface=${iptables_interface_set:-$iptables_interface_default}
     if [[ $iptables_switch -eq 1 ]];then
+        init_iptables
+        set_default_policy_iptables
         iptables -A INPUT -p udp --sport 53 -j ACCEPT										#允许DNS
         iptables -A INPUT -p udp --dport 53 -j ACCEPT										#允许DNS
         iptables -A INPUT -p tcp --dport 50683 -j ACCEPT									#允许SSH登录
@@ -45,8 +47,6 @@ function set_firewalld_iptables() {
 
 
 function config_iptables() {
-    init_iptables
-    set_default_policy_iptables
     set_firewalld_iptables
 }
 
