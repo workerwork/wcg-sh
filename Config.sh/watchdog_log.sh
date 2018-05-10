@@ -62,7 +62,7 @@ function ltegwd_log() {
 
 function manage_log() {
     manage_num=$1
-    ls -lt /root/eGW/Logs/omcapi/manage/*.log 2>/dev/null | awk -v manage_num=$manage_num '{if(NR>manage_num){print $9}}' | xargs rm -rf
+    ls -lt /root/eGW/Logs/omcapi/manage/egw_manage.* 2>/dev/null | awk -v manage_num=$manage_num '{if(NR>manage_num){print $9}}' | xargs rm -rf
 }
 
 function report_log() {
@@ -72,11 +72,11 @@ function report_log() {
 
 function monitor_log() {
     monitor_num=$1
-    ls -lt /root/eGW/Logs/omcapi/monitor/*.log 2>/dev/null | awk -v monitor_num=$monitor_num '{if(NR>monitor_num){print $9}}' | xargs rm -rf
+    ls -lt /root/eGW/Logs/omcapi/monitor/egw_monitor.* 2>/dev/null | awk -v monitor_num=$monitor_num '{if(NR>monitor_num){print $9}}' | xargs rm -rf
 }
 
 function vtysh_log() {
     vtysh_num=$1
-    ls -lt /root/eGW/Logs/vtysh/*.log 2>/dev/null | awk -v vtysh_num=$vtysh_num '{if(NR>vtysh_num){print $9}}' | xargs rm -rf
+    ls -lt /root/eGW/Logs/vtysh/vtysh.* 2>/dev/null | awk -v vtysh_num=$vtysh_num '{if(NR>vtysh_num){print $9}}' | xargs rm -rf
 }
 
