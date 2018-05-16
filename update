@@ -3,29 +3,41 @@
 #########################################################################################
 # update
 # 版本升级工具
-# version:3.0
-# update:20180502
+# version:3.1
+# update:20180516
 #########################################################################################
-
 VER_DIR=/root/eGW/.version
 VER_PATH=$1
 VER_NAME=$2
 
-cd $VER_DIR && rm -rf *
-wget $VER_PATH -O $VER_NAME
-(($? == 1)) && exit 1
-ver=$(find $VER_DIR -maxdepth 1 -type f -name "*.rpm")
-if [ $ver ];then
-    rpm -qa | grep WCG
-    (($? == 0)) && rpm -Uvh $ver --force
-    exit 0
-fi
-ver=$(find $VER_DIR -maxdepth 1 -type f -name "*.tar.gz")
-if [ $ver ];then
-    rpm -qa |grep WCG
-    (($? == 0)) && /root/eGW/vman -u $ver
-    exit 0
-fi
-exit 1
+function wget_version() {
+    [ ! -d $VER_DIR ] && mkdir -p $VER_DIR
+    cd $VER_DIR && rm -rf *
+    wget $VER_PATH -O $VER_NAME
+    (($? == 1)) && exit 10
+}
 
+function up_version() {
+    tar -zxvf $VER_NAME -C $VER_DIR
+    ver=$(find $VER_DIR -maxdepth 1 -type f -name "*.rpm")
+    if [ $ver ];then
+        ver_digest=$(rpm -Kv $VER_NAME | awk '/SHA1 digest/{print $5}' | sed 's@(\|)@@g')
+        ver_verify=$(cat verion.digest)
+        if [[ $ver_digest == $ver_verify ]];then
+            rpm -qa | grep WCG
+            (($? == 0)) && rpm -Uvh $ver --force
+            exit 0
+        else
+            exit 12
+        fi
+    else
+        exit 11
+    fi
+}
 
+function ver_update() {
+    wget_version
+    up_version
+}
+
+ver_update
