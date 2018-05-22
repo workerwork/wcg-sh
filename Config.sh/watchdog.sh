@@ -66,11 +66,11 @@ function log() {
     ps -ef | grep "manage_log watchdog_manage_log_timer watchdog_manage_log_number$"
     [ $? == 1 ] && $watch manage_log watchdog_manage_log_timer watchdog_manage_log_number &
     ps -ef | grep "report_log watchdog_report_log_timer watchdog_report_log_number$"
-	[ $? == 1 ] && $watch report_log watchdog_report_log_timer watchdog_report_log_number &
+    [ $? == 1 ] && $watch report_log watchdog_report_log_timer watchdog_report_log_number &
     ps -ef | grep "monitor_log watchdog_monitor_log_timer watchdog_monitor_log_number$"
-	[ $? == 1 ] && $watch monitor_log watchdog_monitor_log_timer watchdog_monitor_log_number &
+    [ $? == 1 ] && $watch monitor_log watchdog_monitor_log_timer watchdog_monitor_log_number &
     ps -ef | grep "vtysh_log watchdog_vtysh_log_timer wvatchdog_vtysh_log_number$"
-	[ $? == 1 ] && $watch vtysh_log watchdog_vtysh_log_timer watchdog_vtysh_log_number &
+    [ $? == 1 ] && $watch vtysh_log watchdog_vtysh_log_timer watchdog_vtysh_log_number &
 }
 
 function watchdog_all() {
