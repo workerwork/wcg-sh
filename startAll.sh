@@ -30,8 +30,8 @@ function watchdog() {
     while :
     do
         source $CUR_DIR/watchdog.sh
-        watchdog_all && wait
-        sleep 1
+        watchdog_all
+        sleep 30
     done
 }
 watchdog &
