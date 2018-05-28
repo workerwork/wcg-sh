@@ -2,17 +2,18 @@
 
 
 
-
-##############################使用说明################################
+##############################User Manual#############################
 #
-#   1. 运行./register
-#   2. 会在当前路径生成licence.auth和Authorization-Code
-#   3. 把Authorization-Code发回公司网关团队
-#   4. 网关团队制作生成licence.bin发给客户
-#   5. 把licence.bin放进Licence文件夹和licence.auth同一目录
-#   6. 完成
+#   1. Excute ./register
+#   2. Found licence.auth and Authorization-Code in current path
+#   3. Send Authorization-Code to egw team
+#   4. Team of eGW make licence.bin
+#   5. Store licence.bin to Licence directory which store licence.auth file
+#   6. Done
 #
 ######################################################################
+
+
 
 
 
