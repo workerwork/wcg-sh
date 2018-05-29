@@ -21,7 +21,7 @@ function up_version() {
     tar -zxvf $VER_NAME -C $VER_DIR
     ver=$(find $VER_DIR -maxdepth 1 -type f -name "*.rpm")
     if [ $ver ] && $(file $ver | grep "RPM" &>/dev/null);then
-        ver_digest=$(rpm -Kv $VER_NAME | awk '/SHA1 digest/{print $5}' | sed 's@(\|)@@g')
+        ver_digest=$(rpm -Kv $ver | awk '/SHA1 digest/{print $5}' | sed 's@(\|)@@g')
         ver_verify=$(cat version.digest)
         if [[ $ver_digest == $ver_verify ]];then
             rpm -qa | grep WCG
