@@ -6,7 +6,7 @@
 #########################################################################################
 #[ -f /root/eGW/Config.sh/watchdog_para.conf ] && source /root/eGW/Config.sh/watchdog_para.conf
 
-function ps() {
+function egw_ps() {
     source /root/eGW/Config.sh/watchdog_ps.sh
     export -f ps_ltegwd
     export -f ps_egw_manage
@@ -30,7 +30,7 @@ function ps() {
     $watch ipsec_test watchdog_ipsec_test_timer &
 }
 
-function cdr() {
+function egw_cdr() {
     source /root/eGW/Config.sh/watchdog_cdr.sh
     export -f cdr_all
     export -f cdr_upload
@@ -42,7 +42,7 @@ function cdr() {
     $watch cdr_all watchdog_cdr_timer watchdog_cdr_number &
 }
 
-function log() {
+function egw_log() {
     source /root/eGW/Config.sh/watchdog_log.sh
     export -f ps_log
     export -f history_log
@@ -68,13 +68,13 @@ function log() {
     $watch report_log watchdog_report_log_timer watchdog_report_log_number &
     [[ -z $(ps -ef | grep "monitor_log watchdog_monitor_log_timer watchdog_monitor_log_number$") ]] && \
     $watch monitor_log watchdog_monitor_log_timer watchdog_monitor_log_number &
-    [[ -z $(ps -ef | grep "vtysh_log watchdog_vtysh_log_timer wvatchdog_vtysh_log_number$") ]] && \
+    [[ -z $(ps -ef | grep "vtysh_log watchdog_vtysh_log_timer watchdog_vtysh_log_number$") ]] && \
     $watch vtysh_log watchdog_vtysh_log_timer watchdog_vtysh_log_number &
 }
 
 function watchdog_all() {
-    ps
-    cdr
-    log
+    egw_ps
+    egw_cdr
+    egw_log
     echo "watchdog start"
 }
