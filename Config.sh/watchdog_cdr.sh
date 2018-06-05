@@ -70,7 +70,7 @@ function cdr_compress() {
 
 function cdr_del() {
     cdr_num=$1
-    ls -lt /root/eGW/CDR/cdrDat/*.tar.gz 2>/dev/null | awk '{if(NR>$cdr_num){print $9}}' |xargs rm -rf
+    ls -lt /root/eGW/CDR/cdrDat/*.tar.gz 2>/dev/null | awk -v cdr_num=$cdr_num '{if(NR>cdr_num){print $9}}' |xargs rm -rf
 }
 
 function cdr_all() {
