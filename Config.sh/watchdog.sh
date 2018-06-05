@@ -1,8 +1,8 @@
 #!/bin/bash -
 #########################################################################################
 # watchdog
-# version:4.1
-# update:20180523
+# version:5.1
+# update:20180605
 #########################################################################################
 #[ -f /root/eGW/Config.sh/watchdog_para.conf ] && source /root/eGW/Config.sh/watchdog_para.conf
 
@@ -42,6 +42,16 @@ function egw_cdr() {
     $watch cdr_all watchdog_cdr_timer watchdog_cdr_number &
 }
 
+function egw_imsi() {
+    source /root/eGW/Config.sh/watchdog_imsi.sh
+    export -f imsi_all
+    export -f imsi_del
+
+    local watch="/root/eGW/Config.sh/watchdog_imsi.sh"
+    [[ -z $(ps -ef | grep "cdr_all watchdog_imsi_timer watchdog_imsi_number$")  ]] && \
+    $watch imsi_all watchdog_imsi_timer watchdog_imsi_number &
+}
+
 function egw_log() {
     source /root/eGW/Config.sh/watchdog_log.sh
     export -f ps_log
@@ -75,6 +85,7 @@ function egw_log() {
 function watchdog_all() {
     egw_ps
     egw_cdr
+    egw_imsi
     egw_log
     echo "watchdog start"
 }
