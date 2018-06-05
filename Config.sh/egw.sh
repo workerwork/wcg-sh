@@ -66,7 +66,7 @@ function gtp() {
     local gtp_nat_addr_set=${LF_GTP_NAT_ADDR_SET}
     local gtp_nat_addr=${gtp_nat_addr_set:-$gtp_nat_addr_default}
     if [ $lf_switch == "enable" ];then
-        echo 1 > /sys/module/gtp_relay/parameters/gtp_islip
+        echo 1 > /sys/module/gtp_relay/parameters/gtp_is_lbo
         [ $gtp_addr  ] && ifconfig gtp1_1 $gtp_addr
         if [ $gtp_a  ] && [ $gtp_b  ];then
             var=`expr $gtp_a \* 256 + $gtp_b`
@@ -76,7 +76,7 @@ function gtp() {
             fi
         fi
     else
-        echo 0 > /sys/module/gtp_relay/parameters/gtp_islip
+        echo 0 > /sys/module/gtp_relay/parameters/gtp_is_lbo
     fi
     local ipsec_uplink_default=${IPSEC_UPLINK_DEFAULT:-"disable"}
     local ipsec_uplink_set=${IPSEC_UPLINK_SET}
