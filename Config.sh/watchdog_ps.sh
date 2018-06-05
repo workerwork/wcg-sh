@@ -33,7 +33,7 @@ function ps_ltegwd() {
         redis-cli hset eGW-status eGW-ps-state-ltegwd 1
         redis-cli lpush eGW-alarm-ps ltegwd:1
         /root/eGW/ltegwd 0 1 &
-        find /root/eGW -maxdepth 1 -name "*.imsi" -print0 | xargs -0I {} mv -f {} /root/eGW/ImsiFiles
+        #find /root/eGW -maxdepth 1 -name "*.imsi" -print0 | xargs -0I {} mv -f {} /root/eGW/ImsiFiles
     else		
         ltegwd_state=$(redis-cli hget eGW-status eGW-ps-state-ltegwd)
         if [[ $ltegwd_state == 1 ]];then
@@ -62,7 +62,7 @@ function ipsec_test() {
             time_all=`date +%Y-%m-%d' '%H:%M:%S`
             time_Ymd=`date +%Y%m%d`
             echo $time_all " watchdog: ipsec_addr changed" >> /root/eGW/Logs/watchdog/ps_${time_Ymd}.log
-            find /root/eGW -maxdepth 1 -name "*.imsi" -print0 | xargs -0I {} mv -f {} /root/eGW/ImsiFiles
+            #find /root/eGW -maxdepth 1 -name "*.imsi" -print0 | xargs -0I {} mv -f {} /root/eGW/ImsiFiles
     fi
 }
 
