@@ -1,8 +1,8 @@
 #!/bin/bash -
 #########################################################################################
 # watchdog_log.sh
-# version:3.1
-# update:20180523
+# version:4.1
+# update:20180606
 #########################################################################################
 #journalctl --vacuum-size=2G
 #journalctl --vacuum-time=1years
@@ -61,21 +61,21 @@ function ltegwd_log() {
 
 function manage_log() {
     manage_num=$1
-    ls -lt /root/eGW/Logs/omcapi/manage/egw_manage.* 2>/dev/null | awk -v manage_num=$manage_num '{if(NR>manage_num){print $9}}' | xargs rm -rf
+    ls -lt /root/eGW/Logs/omcapi/manage/egw_manage.log_* 2>/dev/null | awk -v manage_num=$manage_num '{if(NR>manage_num){print $9}}' | xargs rm -rf
 }
 
 function report_log() {
     report_num=$1
-    ls -lt /root/eGW/Logs/omcapi/report/egw_report.* 2>/dev/null | awk -v report_num=$report_num '{if(NR>report_num){print $9}}' | xargs rm -rf
+    ls -lt /root/eGW/Logs/omcapi/report/egw_report.log_* 2>/dev/null | awk -v report_num=$report_num '{if(NR>report_num){print $9}}' | xargs rm -rf
 }
 
 function monitor_log() {
     monitor_num=$1
-    ls -lt /root/eGW/Logs/omcapi/monitor/egw_monitor.* 2>/dev/null | awk -v monitor_num=$monitor_num '{if(NR>monitor_num){print $9}}' | xargs rm -rf
+    ls -lt /root/eGW/Logs/omcapi/monitor/egw_monitor.log_* 2>/dev/null | awk -v monitor_num=$monitor_num '{if(NR>monitor_num){print $9}}' | xargs rm -rf
 }
 
 function vtysh_log() {
     vtysh_num=$1
-    ls -lt /root/eGW/Logs/vtysh/vtysh.* 2>/dev/null | awk -v vtysh_num=$vtysh_num '{if(NR>vtysh_num){print $9}}' | xargs rm -rf
+    ls -lt /root/eGW/Logs/vtysh/vtysh.log_* 2>/dev/null | awk -v vtysh_num=$vtysh_num '{if(NR>vtysh_num){print $9}}' | xargs rm -rf
 }
 
