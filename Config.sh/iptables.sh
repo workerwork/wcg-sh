@@ -35,7 +35,8 @@ function set_firewalld_iptables() {
         iptables -A INPUT -p tcp --dport 50683 -j ACCEPT									
         iptables -A INPUT -p udp --dport 500 -j ACCEPT										
         iptables -A INPUT -p udp --dport 4500 -j ACCEPT										
-        iptables -A INPUT -p sctp --dport 36412 -j ACCEPT									
+        iptables -A INPUT -p sctp --dport 36412 -j ACCEPT
+        iptables -A INPUT -p tcp --dport 9090 -j ACCEPT		
         iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT    				
         iptables -A INPUT -p icmp -j ACCEPT													
         iptables -A INPUT -p esp -j ACCEPT                                  				
