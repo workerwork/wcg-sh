@@ -2,8 +2,8 @@
 
 #########################################################################################
 # update
-# version:3.1
-# update:20180516
+# version:3.2
+# update:20180612
 #########################################################################################
 VER_DIR=/root/eGW/.version
 VER_PATH=$1
@@ -24,7 +24,7 @@ function up_version() {
         ver_verify=$(cat version.digest)
         if [[ $ver_digest == $ver_verify ]];then
             rpm -qa | grep WCG
-            (($? == 0)) && rpm -Uvh $ver --force
+            (($? == 0)) && rpm -Uvh $ver --force --allfiles & 
             exit 0
         else
             exit 12
