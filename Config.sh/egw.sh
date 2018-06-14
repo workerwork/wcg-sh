@@ -1,8 +1,8 @@
 #!/bin/bash -
 #########################################################################################
 # egw.sh
-# version:4.2
-# update:20180612
+# version:4.3
+# update:20180614
 #########################################################################################
 function ipsec_ipaddr() {
     local ipsec_uplink_default=${IPSEC_UPLINK_DEFAULT:-"disable"}
@@ -31,10 +31,10 @@ function ipsec_ipaddr() {
         /root/eGW/vtysh -c /root/eGW/Config.sh/.config.show | \
         sed -n "s@\(gtpu-uplink add[ ]\).*@\1$ip_conf@p" >> /root/eGW/Config.sh/.config.cmd
         /root/eGW/vtysh -c /root/eGW/Config.sh/.config.cmd
-        sed "s/$ip_conf/$ip_save/g" /root/eGW/Config.sh/.config.cmd > /root/eGW/Config.sh/.config.recover
+        sed '/gtpu-uplink del/!s/$ip_conf/$ip_save/g' /root/eGW/Config.sh/.config.cmd > /root/eGW/Config.sh/.config.recover
         #sleep 60	
     else
-        local ipsec_uplink_flag=$(redis-cli hget eGW-status eGW-ipsec-uplink)
+        local ipsec_uplink_flag=$(redis-cli hget eGW-status eGW-ipsec-state-uplink)
         if [ $ipsec_uplink_flag == "1" ];then
             [[ ! $(ipsec status) ]] && ipsec start && sleep 2
             /root/eGW/vtysh -c /root/eGW/Config.sh/.config.recover
