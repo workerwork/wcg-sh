@@ -34,7 +34,7 @@ function ipsec_ipaddr() {
         sed "/macro-enblink add/s/$ip_conf/$ip_save/" /root/eGW/Config.sh/.config.cmd > /root/eGW/Config.sh/.config.recover
         sed -i "s@\(gtpu-uplink del \).*@\1$ip_conf@" /root/eGW/Config.sh/.config.recover
         sed -i "s@\(gtpu-uplink add \).*@\1$ip_save@" /root/eGW/Config.sh/.config.recover
-		#sleep 60	
+        #sleep 60	
     else
         local ipsec_uplink_flag=$(redis-cli hget eGW-status eGW-ipsec-state-uplink)
         if [ $ipsec_uplink_flag == "1" ];then
