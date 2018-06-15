@@ -1,8 +1,8 @@
 #!/bin/bash -
 #########################################################################################
 # watchdog_ps.sh
-# version:3.1
-# update:20180523
+# version:3.2
+# update:20180615
 #########################################################################################
 function watch_ps() {
     task=$1
@@ -37,7 +37,10 @@ function ps_ltegwd() {
     else		
         ltegwd_state=$(redis-cli hget eGW-status eGW-ps-state-ltegwd)
         if [[ $ltegwd_state == 1 ]];then
-            redis-cli lpush eGW-alarm-ps ltegwd:0
+            local egw_licensestatus=$(redis-cli get egwLicenseStatus | awk -F ':' '{print $2}')
+            if [ $egw_licensestatus == 0 ];then
+                redis-cli lpush eGW-alarm-ps ltegwd:0
+            fi
             redis-cli hset eGW-status eGW-ps-state-ltegwd 0
         fi
     fi
