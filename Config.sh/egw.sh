@@ -1,8 +1,8 @@
 #!/bin/bash -
 #########################################################################################
 # egw.sh
-# version:4.4
-# update:20180615
+# version:4.5
+# update:20180619
 #########################################################################################
 function ipsec_ipaddr() {
     local ipsec_uplink_default=${IPSEC_UPLINK_DEFAULT:-"disable"}
@@ -81,8 +81,8 @@ function gtp() {
     local gtp_nat_addr=${gtp_nat_addr_set:-$gtp_nat_addr_default}
     if [ $lf_switch == "enable" ];then
         echo 1 > /sys/module/gtp_relay/parameters/gtp_is_lbo
-        [ $gtp_addr  ] && ifconfig gtp1_1 $gtp_addr
-        if [ $gtp_a  ] && [ $gtp_b  ];then
+        [ $gtp_addr ] && ifconfig gtp1_1 $gtp_addr
+        if [ $gtp_a ] && [ $gtp_b ];then
             var=`expr $gtp_a \* 256 + $gtp_b`
             echo $var > /sys/module/gtp_relay/parameters/gtp_lip
             if [ $gtp_nat_if ] && [ $gtp_nat_addr ];then
