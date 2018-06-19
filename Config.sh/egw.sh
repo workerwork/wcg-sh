@@ -48,8 +48,8 @@ function ipsec_ipaddr() {
 
 function init_gso() {
     echo "show running-config" > /root/eGW/Config.sh/.config.show
-    ipaddr_toepc=$(/root/eGW/vtysh -c /root/eGW/.config.show |grep "macro-enblink add " | awk 'NR==1{print $5}')
-    ipaddr_toenb=$(/root/eGW/vtysh -c /root/eGW/.config.show | awk '/home-enb accessip/{print $4;exit}')
+    ipaddr_toepc=$(/root/eGW/vtysh -c /root/eGW/Config.sh/.config.show |grep "macro-enblink add " | awk 'NR==1{print $5}')
+    ipaddr_toenb=$(/root/eGW/vtysh -c /root/eGW/Config.sh/.config.show | awk '/home-enb accessip/{print $4;exit}')
     inet_toepc=$(ifconfig -a |grep $ipaddr_toepc -B 1 | head -1 | cut -d " " -f 1 | sed 's/.$//')
     inet_toenb=$(ifconfig -a |grep $ipaddr_toenb -B 1 | head -1 | cut -d " " -f 1 | sed 's/.$//')
     ethtool -K $inet_toepc gso off
