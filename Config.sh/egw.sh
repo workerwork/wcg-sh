@@ -80,17 +80,17 @@ function gtp() {
     local gtp_nat_addr_set=${LF_GTP_NAT_ADDR_SET}
     local gtp_nat_addr=${gtp_nat_addr_set:-$gtp_nat_addr_default}
     if [ $lf_switch == "enable" ];then
-        echo 1 > /sys/module/gtp_relay/parameters/gtp_is_lbo
+        echo 1 > /sys/module/gtp_relay/parameters/gtp_all_lbo
         [ $gtp_addr ] && ifconfig gtp1_1 $gtp_addr
         if [ $gtp_a ] && [ $gtp_b ];then
             var=`expr $gtp_a \* 256 + $gtp_b`
-            echo $var > /sys/module/gtp_relay/parameters/gtp_lip
+            echo $var > /sys/module/gtp_relay/parameters/gtp_lip_prefix
             if [ $gtp_nat_if ] && [ $gtp_nat_addr ];then
                 iptables -t nat -A POSTROUTING -s ${gtp_a}.${gtp_b}.0.0/16 -o $gtp_nat_if -j SNAT --to-source $gtp_nat_addr
             fi
         fi
     else
-        echo 0 > /sys/module/gtp_relay/parameters/gtp_is_lbo
+        echo 0 > /sys/module/gtp_relay/parameters/gtp_all_lbo
     fi
     local ipsec_uplink_default=${IPSEC_UPLINK_DEFAULT:-"disable"}
     local ipsec_uplink_set=${IPSEC_UPLINK_SET}
