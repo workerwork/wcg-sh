@@ -86,7 +86,13 @@ function gtp() {
             var=`expr $gtp_a \* 256 + $gtp_b`
             echo $var > /sys/module/gtp_relay/parameters/gtp_lip_prefix
             if [ $gtp_nat_if ] && [ $gtp_nat_addr ];then
-                iptables -t nat -A POSTROUTING -s ${gtp_a}.${gtp_b}.0.0/16 -o $gtp_nat_if -j SNAT --to-source $gtp_nat_addr
+                if [ -f /root/eGW/Config.sh/.iptables.cmd ];then
+                    sed -i 's/-A/-D/' /root/eGW/Config.sh/.iptables.cmd
+                    iptables_set=$(cat /root/eGW/Config.sh/.iptables.cmd)
+                    $iptables_set 2>&1>/dev/null
+                fi		
+                local iptables_cmd="iptables -t nat -A POSTROUTING -s ${gtp_a}.${gtp_b}.0.0/16 -o $gtp_nat_if -j SNAT --to-source $gtp_nat_addr"
+                $iptables_cmd && echo $iptables_cmd > /root/eGW/Config.sh/.iptables.cmd
             fi
         fi
     else
