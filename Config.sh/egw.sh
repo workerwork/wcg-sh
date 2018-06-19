@@ -79,7 +79,7 @@ function gtp() {
     local gtp_nat_addr_default=${LF_GTP_NAT_ADDR_DEFAULT:-"x.x.x.x"}
     local gtp_nat_addr_set=${LF_GTP_NAT_ADDR_SET}
     local gtp_nat_addr=${gtp_nat_addr_set:-$gtp_nat_addr_default}
-    if [ $lf_switch == "enable" ];then
+    if [[ $lf_switch == "enable" ]];then
         echo 1 > /sys/module/gtp_relay/parameters/gtp_all_lbo
         [ $gtp_addr ] && ifconfig gtp1_1 $gtp_addr
         if [ $gtp_a ] && [ $gtp_b ];then
