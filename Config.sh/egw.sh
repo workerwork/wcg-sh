@@ -37,7 +37,7 @@ function ipsec_ipaddr() {
         #sleep 60	
     else
         local ipsec_uplink_flag=$(redis-cli hget eGW-status eGW-ipsec-state-uplink)
-        if [ $ipsec_uplink_flag == "1" ];then
+        if [[ $ipsec_uplink_flag == "1" ]];then
             [[ ! $(ipsec status) ]] && ipsec start && sleep 2
             /root/eGW/vtysh -c /root/eGW/Config.sh/.config.recover
             #ipsec stop
