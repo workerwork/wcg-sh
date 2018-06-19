@@ -1,8 +1,8 @@
 #!/bin/bash -
 #########################################################################################
 # init.sh
-# version:3.1
-# update:20180523
+# version:3.2
+# update:20180619
 #########################################################################################
 function init_fold() {
     [ ! -d /root/eGW/CDR/cdrDat ] && mkdir -p /root/eGW/CDR/cdrDat
@@ -75,6 +75,25 @@ function init_para() {
     fi
 }
 
+function read_para() {
+    IPSEC_UPLINK_DEFAULT=$(redis-cli hget eGW-para-default config_ipsec_uplink_switch)
+    IPSEC_UPLINK_SET=$(redis-cli hget eGW-para-set config_ipsec_uplink_switch)
+    IPSEC_DOWNLINK_DEFAULT=$(redis-cli hget eGW-para-default config_ipsec_downlink_switch)
+    IPSEC_DOWNLINK_SET=$(redis-cli hget eGW-para-set config_ipsec_downlink_switch)
+    IPTABLES_SWITCH_DEFAULT=$(redis-cli hget eGW-para-default config_iptables_switch)
+    IPTABLES_SWITCH_SET=$(redis-cli hget eGW-para-set config_iptables_switch)
+    IPTABLES_IF_DEFAULT=$(redis-cli hget eGW-para-default config_iptables_interface)
+    IPTABLES_IF_SET=$(redis-cli eGW-para-set config_iptables_interface)
+    LF_SWITCH_DEFAULT=$(redis-cli hget eGW-para-default config_gtp_forward_switch)
+    LF_SWITCH_SET=$(redis-cli hget eGW-para-set config_gtp_forward_switch)
+    LF_GTP_ADDR_DEFAULT=$(redis-cli hget eGW-para-default config_gtp_address)
+    LF_GTP_ADDR_SET=$(redis-cli hget eGW-para-set config_gtp_address)
+    LF_GTP_NAT_IF_DEFAULT=$(redis-cli hget eGW-para-default config_gtp_nat_interface)
+    LF_GTP_NAT_IF_SET=$(redis-cli hget eGW-para-set config_gtp_nat_interface)
+    LF_GTP_NAT_ADDR_DEFAULT=$(redis-cli hget eGW-para-default config_gtp_nat_address)
+    LF_GTP_NAT_ADDR_SET=$(redis-cli hget eGW-para-set config_gtp_nat_address)
+}
+
 function start_ipsec() {
     local ipsec_uplink_default=${IPSEC_UPLINK_DEFAULT:-"disable"}
     local ipsec_uplink_set=${IPSEC_UPLINK_SET}
@@ -105,6 +124,7 @@ function init() {
     init_net
     init_redis
     init_para
+    read_para
     start_ipsec
 }
 

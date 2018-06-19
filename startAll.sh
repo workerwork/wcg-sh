@@ -1,10 +1,10 @@
 #!/bin/bash -
 #########################################################################################
 # startAll.sh
-# version:3.1
-# update:20180523
+# version:3.2
+# update:20180619
 #########################################################################################
-[ /root/eGW/Config.sh/parameters.conf ] && source /root/eGW/Config.sh/parameters.conf
+#[ /root/eGW/Config.sh/parameters.conf ] && source /root/eGW/Config.sh/parameters.conf
 CUR_DIR=/root/eGW/Config.sh
 
 #init the redis nginx ipsec
