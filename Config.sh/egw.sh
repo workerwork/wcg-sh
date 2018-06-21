@@ -1,8 +1,8 @@
 #!/bin/bash -
 #########################################################################################
 # egw.sh
-# version:4.5
-# update:20180619
+# version:4.6
+# update:20180621
 #########################################################################################
 function ipsec_ipaddr() {
     local ipsec_uplink_default=${IPSEC_UPLINK_DEFAULT:-"disable"}
@@ -48,12 +48,16 @@ function ipsec_ipaddr() {
 
 function init_gso() {
     echo "show running-config" > /root/eGW/Config.sh/.config.show
-    ipaddr_toepc=$(/root/eGW/vtysh -c /root/eGW/Config.sh/.config.show |grep "macro-enblink add " | awk 'NR==1{print $5}')
-    ipaddr_toenb=$(/root/eGW/vtysh -c /root/eGW/Config.sh/.config.show | awk '/home-enb accessip/{print $4;exit}')
-    inet_toepc=$(ifconfig -a |grep $ipaddr_toepc -B 1 | head -1 | cut -d " " -f 1 | sed 's/.$//')
-    inet_toenb=$(ifconfig -a |grep $ipaddr_toenb -B 1 | head -1 | cut -d " " -f 1 | sed 's/.$//')
-    ethtool -K $inet_toepc gso off
-    ethtool -K $inet_toenb gso off
+    local ipaddr_toepc=$(/root/eGW/vtysh -c /root/eGW/Config.sh/.config.show |grep "macro-enblink add " | awk 'NR==1{print $5}')
+    local ipaddr_toenb=$(/root/eGW/vtysh -c /root/eGW/Config.sh/.config.show | awk '/home-enb accessip/{print $4;exit}')
+    if [ $ipaddr_toepc ];then
+        local inet_toepc=$(ifconfig -a |grep $ipaddr_toepc -B 1 | head -1 | cut -d " " -f 1 | sed 's/.$//')
+        [ $inet_toepc ] && ethtool -K $inet_toepc gso off 
+    fi
+    if [ $ipaddr_toenb ];then
+        local inet_toenb=$(ifconfig -a |grep $ipaddr_toenb -B 1 | head -1 | cut -d " " -f 1 | sed 's/.$//')
+        [ $inet_toenb ] && ethtool -K $inet_toenb gso off
+    fi
 }
 
 
