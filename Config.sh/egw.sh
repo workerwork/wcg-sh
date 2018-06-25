@@ -1,8 +1,8 @@
 #!/bin/bash -
 #########################################################################################
 # egw.sh
-# version:4.6
-# update:20180621
+# version:4.7
+# update:20180625
 #########################################################################################
 function ipsec_ipaddr() {
     local ipsec_uplink_default=${IPSEC_UPLINK_DEFAULT:-"disable"}
@@ -62,13 +62,6 @@ function init_gso() {
 
 
 function gtp() {
-    lsmod | grep gtp_relay
-    if [[ $? == 0 ]];then
-        rmmod /root/eGW/gtp-relay.ko
-        insmod /root/eGW/gtp-relay.ko
-    else
-        insmod /root/eGW/gtp-relay.ko
-    fi
     local lf_switch_default=${LF_SWITCH_DEFAULT:-"disable"}
     local lf_switch_set=${LF_SWITCH_SET}
     local lf_switch=${lf_switch_set:-$lf_switch_default}
