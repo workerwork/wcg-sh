@@ -27,7 +27,7 @@ function init_net() {
                 $line 2>&1>/dev/null
             fi
         done < /root/eGW/networkcfg.conf
-	fi
+    fi
 }
 
 function init_redis() {
